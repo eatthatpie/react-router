@@ -1,0 +1,5 @@
+# tests outputs
+coverage
+
+# vendors
+node_modules
