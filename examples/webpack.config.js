@@ -18,13 +18,19 @@ module.exports = {
         test: /\.js$/,
         use: 'babel-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
       }
     ]
   },
   resolve: {
     alias: {
-      '@eatthatpie/react-router$': path.join(__dirname, '../src')
+      '@eatthatpie/react-router$': path.join(__dirname, '../src'),
+      "@": path.resolve(__dirname, '../src')
     },
-    extensions: ['.js', '.jsx', '.json']
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
   }
 };
