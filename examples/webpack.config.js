@@ -23,7 +23,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@eatthatpie/react-router': path.join(__dirname, '../src')
+      '@eatthatpie/react-router$': path.join(__dirname, '../src')
     },
     extensions: ['.js', '.jsx', '.json']
   }
