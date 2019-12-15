@@ -1,5 +1,6 @@
 import { createContext } from 'react';
+import Router from '@/Router';
 
-const context = createContext(true);
+const context = createContext(new Router());
 
 export default context;

@@ -10,23 +10,23 @@ describe(`matchRoute`, function() {
   it(`matches route by name`, function() {
     const location = { name: 'a' };
 
-    expect(matchRoute(routes, location)).toBe(routes[0]);
+    expect(matchRoute(routes, location)).toMatchObject(routes[0]);
   });
 
   it(`matches route by path`, function() {
     const location = { path: '/b' };
 
-    expect(matchRoute(routes, location)).toBe(routes[1]);
+    expect(matchRoute(routes, location)).toMatchObject(routes[1]);
   });
 
   it(`ignores lack of first slash in path string`, function() {
     const locationB = { path: 'b' };
 
-    expect(matchRoute(routes, locationB)).toBe(routes[1]);
+    expect(matchRoute(routes, locationB)).toMatchObject(routes[1]);
 
     const locationC = { path: '/c' };
 
-    expect(matchRoute(routes, locationC)).toBe(routes[2]);
+    expect(matchRoute(routes, locationC)).toMatchObject(routes[2]);
   });
 
   it(`returns false if route with given path is not defined`, function() {

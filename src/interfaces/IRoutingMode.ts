@@ -1,3 +1,5 @@
+import IMatchedRoute from '@/interfaces/IMatchedRoute';
+
 export default interface IRoutingMode {
-  push(path: string): void;
+  push(route: IMatchedRoute): void;
 }
