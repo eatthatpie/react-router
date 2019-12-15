@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "examples": "node examples",
+    "examples": "nodemon examples",
     "test": "jest --passWithNoTests",
     "test-cov": "jest --passWithNoTests --coverage"
   },

@@ -10,8 +10,6 @@ export default function RouterLink(props) {
     );
   }
 
-  console.log($router);
-
   function handleClick(e) {
     e.preventDefault();
 
