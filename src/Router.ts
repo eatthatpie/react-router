@@ -7,9 +7,11 @@ import { createRoutingMode } from '@/factories';
 
 export default class Router {
   protected _mode: IRoutingMode;
-  protected _routes: Array<IRouteConfig>;
+  public _routes: Array<IRouteConfig>;
+  protected _cbs: Array<Function>;
 
   public constructor(config?: IRouterConfig) {
+    this._cbs = [];
     this._routes = config && config.routes ? config.routes : [];
     this._mode = config && config.mode
       ? createRoutingMode(config.mode)
@@ -28,17 +30,14 @@ export default class Router {
       );
     }
   
-    // @TODO: should only push matchedRoute
-    this._mode.push(matchedRoute.path);
+    this._mode.push(matchedRoute);
+
+    this._cbs.forEach(cb => { cb(matchedRoute.component); });
 
     return true;
   }
 
-  public modeState(): any {
-    return {
-      get() {
-        return this._mode.state;
-      }
-    };
+  public subscribe(cb: Function) {
+    this._cbs.push(cb);
   }
 }
