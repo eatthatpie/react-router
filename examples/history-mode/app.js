@@ -8,18 +8,18 @@ import { Page1, Page2 } from './pages';
 import React from 'react';
 import { render } from 'react-dom';
 
-function App() {
+function Layout() {
   return (
     <div className="app">
       <nav>
         <ul>
         <li>
-            <RouterLink to="/">
+            <RouterLink to={{ path: '/' }}>
               Page 1
             </RouterLink>
           </li>
           <li>
-            <RouterLink to="/page2">
+            <RouterLink to={{ path: '/page2' }}>
               Page 2
             </RouterLink>
           </li>
@@ -44,9 +44,15 @@ const router = createRouter({
   ]
 });
 
+function App() {
+  return (
+    <RouterContext.Provider value={router}>
+      <Layout />
+    </RouterContext.Provider>
+  );
+}
+
 render(
-  <RouterContext router={router}>
-    <App />
-  </RouterContext>,
+  <App />,
   document.getElementById('root')
 );

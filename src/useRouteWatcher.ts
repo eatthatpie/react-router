@@ -1,5 +1,5 @@
 import RouterContext from '@/RouterContext';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 export default function useRouteWatcher(cb: Function) {
   const context = useContext(RouterContext);
@@ -10,5 +10,7 @@ export default function useRouteWatcher(cb: Function) {
     );
   }
 
-  context.subscribe(cb);
+  // useEffect(() => {
+  //   cb(from, to);
+  // }, [context.modeState]);
 }

@@ -14,6 +14,9 @@ export default class Router {
     this._mode = config && config.mode
       ? createRoutingMode(config.mode)
       : createRoutingMode('hash')
+
+    // this._mode.listenToPushState();
+    // this._mode.listenToPopState();
   }
 
   public push(location: ILocation): Boolean {
@@ -25,8 +28,17 @@ export default class Router {
       );
     }
   
+    // @TODO: should only push matchedRoute
     this._mode.push(matchedRoute.path);
 
     return true;
+  }
+
+  public modeState(): any {
+    return {
+      get() {
+        return this._mode.state;
+      }
+    };
   }
 }

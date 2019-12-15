@@ -10,12 +10,19 @@ export default function RouterLink(props) {
     );
   }
 
-  function handleClick() {
+  console.log($router);
+
+  function handleClick(e) {
+    e.preventDefault();
+
     $router.push({ path: props.to.path });
   }
 
   return (
-    <a onClick={handleClick}>
+    <a
+      href={props.to.path}
+      onClick={handleClick}
+    >
       {props.children}
     </a>
   );
