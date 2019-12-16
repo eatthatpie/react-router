@@ -16,7 +16,25 @@ export default class Router {
       : createRoutingMode('hash')
 
     this._mode.listenToPushState();
-    // this._mode.listenToPopState();
+    this._mode.listenToPopState();
+
+    window.addEventListener('popstate', this.pop.bind(this));
+  }
+
+  public pop(e: PopStateEvent): Boolean {
+    const location = { path: window.location.pathname };
+
+    const matchedRoute = matchRoute(this._routes, location);
+
+    if (!matchedRoute) {
+      throw new Error(
+        `[Router] The given route is not defined in router config.`
+      );
+    }
+  
+    this._mode.pop(matchedRoute);
+
+    return true;
   }
 
   public push(location: ILocation): Boolean {

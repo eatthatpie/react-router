@@ -4,14 +4,30 @@ import IMatchedRoute from './interfaces/IMatchedRoute';
 export default class HistoryRoutingMode implements IRoutingMode {
   public constructor(
     protected _cbs: Array<Function> = [],
+    protected _isListeningToPopState: Boolean = true,
     protected _isListeningToPushState: Boolean = false,
     protected _state: Array<any> = [{}, {}]
   ) {}
+
+  public listenToPopState(): Boolean {
+    this._isListeningToPopState = true;
+
+    return this._isListeningToPopState;
+  }
 
   public listenToPushState(): Boolean {
     this._isListeningToPushState = true;
 
     return this._isListeningToPushState;
+  }
+
+  public pop(matchedRoute: IMatchedRoute): void {
+    this._state[1] = Object.assign({}, this._state[0]);
+    this._state[0] = Object.assign({}, matchedRoute);
+
+    if (this._isListeningToPopState) {
+      this._cbs.forEach(cb => { cb(this._state); });
+    }
   }
 
   public push(matchedRoute: IMatchedRoute): void {

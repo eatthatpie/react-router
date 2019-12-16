@@ -1,7 +1,9 @@
 import IMatchedRoute from '@/interfaces/IMatchedRoute';
 
 export default interface IRoutingMode {
+  listenToPopState(): Boolean;
   listenToPushState(): Boolean;
-  push(route: IMatchedRoute): void;
+  pop(matchedRoute: IMatchedRoute): void;
+  push(matchedRoute: IMatchedRoute): void;
   subscribe(cb: Function): void;
 }
