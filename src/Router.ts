@@ -8,16 +8,14 @@ import { createRoutingMode } from '@/factories';
 export default class Router {
   protected _mode: IRoutingMode;
   public _routes: Array<IRouteConfig>;
-  protected _cbs: Array<Function>;
 
   public constructor(config?: IRouterConfig) {
-    this._cbs = [];
     this._routes = config && config.routes ? config.routes : [];
     this._mode = config && config.mode
       ? createRoutingMode(config.mode)
       : createRoutingMode('hash')
 
-    // this._mode.listenToPushState();
+    this._mode.listenToPushState();
     // this._mode.listenToPopState();
   }
 
@@ -32,12 +30,10 @@ export default class Router {
   
     this._mode.push(matchedRoute);
 
-    this._cbs.forEach(cb => { cb(matchedRoute.component); });
-
     return true;
   }
 
   public subscribe(cb: Function) {
-    this._cbs.push(cb);
+    this._mode.subscribe(cb);
   }
 }

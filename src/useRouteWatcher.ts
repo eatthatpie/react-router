@@ -4,13 +4,13 @@ import { useContext, useEffect, useState } from 'react';
 export default function useRouteWatcher(cb: Function) {
   const router = useContext(RouterContext);
 
-  const [component, setComponent] = useState(null);
+  const [matchedRoutes, setMatchedRoutes] = useState({ from: null, to: null });
 
-  router.subscribe((component) => {
-    setComponent(component);
+  router.subscribe(matchedRoutes => {
+    setMatchedRoutes({ from: matchedRoutes[1], to: matchedRoutes[0] });
   });
 
   useEffect(() => {
-    cb(component);
-  }, [component]);
+    cb(matchedRoutes.from, matchedRoutes.to);
+  }, [matchedRoutes]);
 }
