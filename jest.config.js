@@ -1,6 +1,7 @@
 module.exports = {
   globals: {
     window: {
+      addEventListener: function() {},
       location: {
         href: ''
       }

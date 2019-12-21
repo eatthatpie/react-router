@@ -13,7 +13,7 @@ export default class Router {
     this._routes = config && config.routes ? config.routes : [];
     this._mode = config && config.mode
       ? createRoutingMode(config.mode)
-      : createRoutingMode('hash')
+      : createRoutingMode('history')
 
     this._mode.listenToPushState();
     this._mode.listenToPopState();

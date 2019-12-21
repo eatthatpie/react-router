@@ -2,6 +2,7 @@ import Router from './Router';
 
 describe(`Router`, function() {
   const router = new Router({
+    mode: 'history',
     routes: [
       {
         name: 'a',

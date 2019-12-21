@@ -6,7 +6,10 @@
   "scripts": {
     "examples": "nodemon examples",
     "test": "jest --passWithNoTests",
-    "test-cov": "jest --passWithNoTests --coverage"
+    "test-cov": "jest --passWithNoTests --coverage",
+    "test:e2e-ch": "BROWSER=chrome jest ./e2e",
+    "test:e2e-ff": "BROWSER=firefox jest ./e2e",
+    "test:e2e": "npm run test:e2e-ch; npm run test:e2e-ff"
   },
   "keywords": [],
   "author": "eatthatpie <eatthatpie.dev@gmail.com>",
@@ -21,6 +24,7 @@
     "jest": "^24.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "selenium-webdriver": "^4.0.0-alpha.5",
     "ts-jest": "^24.2.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.3",
