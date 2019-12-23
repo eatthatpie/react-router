@@ -22,7 +22,9 @@ describe(`[${browserName}] history mode`, () => {
       await bs.get('http://localhost:3000/history-mode/example');
       await (await bs.$('a[href="/history-mode/example/page2"]')).click();
 
-      expect(await bs.getCurrentUrl()).toEqual('http://localhost:3000/history-mode/example/page2');
+      expect(await bs.getCurrentUrl()).toEqual(
+        'http://localhost:3000/history-mode/example/page2'
+      );
     } finally {
       await bs.quit();
     }
@@ -37,7 +39,9 @@ describe(`[${browserName}] history mode`, () => {
       await (await bs.$('a[href="/history-mode/example"]')).click();
       await bs.navigate().back();
 
-      expect(await bs.getCurrentUrl()).toEqual('http://localhost:3000/history-mode/example/page2');
+      expect(await bs.getCurrentUrl()).toEqual(
+        'http://localhost:3000/history-mode/example/page2'
+      );
     } finally {
       await bs.quit();
     }
@@ -54,7 +58,9 @@ describe(`[${browserName}] history mode`, () => {
       await (await bs.$('a[href="/history-mode/example/page2"]')).click();
       await bs.navigate().back();
 
-      expect(await bs.getCurrentUrl()).toEqual('http://localhost:3000/history-mode/example');
+      expect(await bs.getCurrentUrl()).toEqual(
+        'http://localhost:3000/history-mode/example'
+      );
     } finally {
       await bs.quit();
     }
