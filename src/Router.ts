@@ -4,6 +4,7 @@ import IRoutingMode from '@/interfaces/IRoutingMode';
 import IRouteConfig from '@/interfaces/IRouteConfig';
 import matchRoute from '@/matchRoute';
 import { createRoutingMode } from '@/factories';
+import IMatchedRoute from './interfaces/IMatchedRoute';
 
 export default class Router {
   protected _mode: IRoutingMode;
@@ -15,10 +16,16 @@ export default class Router {
       ? createRoutingMode(config.mode)
       : createRoutingMode('history')
 
+    this.push({ path: window.location.pathname });
+
     this._mode.listenToPushState();
     this._mode.listenToPopState();
 
     window.addEventListener('popstate', this.pop.bind(this));
+  }
+
+  public getCurrentRoute(): IMatchedRoute {
+    return this._mode.getCurrentRoute();
   }
 
   public pop(e: PopStateEvent): Boolean {

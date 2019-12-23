@@ -13,13 +13,13 @@ function Layout() {
     <div className="app">
       <nav>
         <ul>
-        <li>
-            <RouterLink to={{ path: '/' }}>
+          <li>
+            <RouterLink to={{ path: '/history-mode/example' }}>
               Page 1
             </RouterLink>
           </li>
           <li>
-            <RouterLink to={{ path: '/page2' }}>
+            <RouterLink to={{ path: '/history-mode/example/page2' }}>
               Page 2
             </RouterLink>
           </li>
@@ -34,11 +34,11 @@ const router = createRouter({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/history-mode/example',
       component: Page1
     },
     {
-      path: '/page2',
+      path: '/history-mode/example/page2',
       component: Page2
     }
   ]

@@ -9,6 +9,10 @@ export default class HistoryRoutingMode implements IRoutingMode {
     protected _state: Array<any> = [{}, {}]
   ) {}
 
+  public getCurrentRoute(): IMatchedRoute {
+    return this._state ? this._state[0] : null;
+  }
+
   public listenToPopState(): Boolean {
     this._isListeningToPopState = true;
 
@@ -31,6 +35,10 @@ export default class HistoryRoutingMode implements IRoutingMode {
   }
 
   public push(matchedRoute: IMatchedRoute): void {
+    if (this._state && matchedRoute.path === this._state[0].path) {
+      return;
+    }
+
     window.history.pushState('', '', matchedRoute.path);
 
     this._state[1] = Object.assign({}, this._state[0]);
