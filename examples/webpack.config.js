@@ -1,11 +1,10 @@
 const path = require('path');
 
-const fullDir = path.join(__dirname, 'history-mode');
-
 module.exports = {
   mode: 'development',
   entry: {
-    'history-mode': path.join(fullDir, 'app.js')
+    'history-mode': path.join(path.join(__dirname, 'history-mode'), 'app.js'),
+    'route-params': path.join(path.join(__dirname, 'route-params'), 'app.js')
   },
   output: {
     path: path.join(__dirname, 'build'),

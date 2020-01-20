@@ -10,8 +10,8 @@ export default function RouterView() {
   });
 
   return (
-    <div>
+    <>
       {component}
-    </div>
+    </>
   );
 }
