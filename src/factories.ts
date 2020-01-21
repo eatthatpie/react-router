@@ -6,13 +6,14 @@ import HistoryRoutingMode from '@/HistoryRoutingMode';
 
 export function createMatchedRoute(
   routeConfig: IRouteConfig,
+  matchedPath: string,
   params?: any
 ): IMatchedRoute {
   if (!params) {
-    return routeConfig;
+    return <IMatchedRoute> routeConfig;
   }
 
-  return Object.assign({}, routeConfig, { params });
+  return <IMatchedRoute> Object.assign({}, routeConfig, { matchedPath, params });
 }
 
 export function createRoutingMode(modeName: string): IRoutingMode {

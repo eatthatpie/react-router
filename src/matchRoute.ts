@@ -23,7 +23,7 @@ export default function matchRoute(
 
   for (let i = 0; i < routes.length; i++) {
     if (routes[i].path === '*') {
-      return createMatchedRoute(routes[i]);
+      return createMatchedRoute(routes[i], location.path);
     }
   
     const matcher = match(<Path> ensureOpeningSlash(routes[i].path));
@@ -31,7 +31,7 @@ export default function matchRoute(
     const result = matcher(ensureOpeningSlash(location.path))
 
     if (!!result) {
-      return createMatchedRoute(routes[i], result.params); 
+      return createMatchedRoute(routes[i], location.path, result.params); 
     }
   }
 

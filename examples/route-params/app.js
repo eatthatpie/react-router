@@ -19,12 +19,12 @@ function Layout() {
             </RouterLink>
           </li>
           <li>
-            <RouterLink to={{ path: '/route-params/example/1/2' }}>
+            <RouterLink to={{ path: '/route-params/example/1' }}>
               Page 2
             </RouterLink>
           </li>
           <li>
-            <RouterLink to={{ path: '/route-params/example/1/3' }}>
+            <RouterLink to={{ path: '/route-params/example/2/3' }}>
               Page 3
             </RouterLink>
           </li>
@@ -43,11 +43,11 @@ const router = createRouter({
       component: () => Page1
     },
     {
-      path: '/route-params/example/1/2',
+      path: '/route-params/example/:a',
       component: () => Page2
     },
     {
-      path: '/route-params/example/1/:id',
+      path: '/route-params/example/:a/:b',
       component: () => Page3
     }
   ]

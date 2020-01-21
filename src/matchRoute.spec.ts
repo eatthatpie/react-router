@@ -87,5 +87,13 @@ describe(`matchRoute`, function() {
         }
       });
     });
+
+    test(`matched route object contains matched path url`, function() {
+      const location = { path: '/e/param1/param2' };
+
+      expect(matchRoute(routes, location)).toMatchObject({
+        matchedPath: '/e/param1/param2'
+      });
+    });
   });
 });
