@@ -8,7 +8,7 @@ import { createMatchedRoute } from '@/factories';
 export default function matchRoute(
   routes: Array<IRouteConfig>,
   location: ILocation
-): IMatchedRoute {
+): IMatchedRoute | boolean {
   if (location.path && location.name) {
     throw new Error(
       `[matchRoute] Properties 'path' and 'name' cannot be given at the same time.`
@@ -17,15 +17,23 @@ export default function matchRoute(
 
   if (!location.path) {
     return (
-      <IRouteConfig> routes.find(item => item.name === location.name) || false
+      <IMatchedRoute> routes.find(item => item.name === location.name) || false
     );
   }
 
-  const matcher = match(<Path> ensureOpeningSlash(location.path));
+  for (let i = 0; i < routes.length; i++) {
+    if (routes[i].path === '*') {
+      return createMatchedRoute(routes[i]);
+    }
+  
+    const matcher = match(<Path> ensureOpeningSlash(routes[i].path));
 
-  const matchedRouteConfig = <IRouteConfig> routes.find(
-    item => matcher(ensureOpeningSlash(item.path))
-  ) || false;
+    const result = matcher(ensureOpeningSlash(location.path))
 
-  return createMatchedRoute(matchedRouteConfig) || false;
+    if (!!result) {
+      return createMatchedRoute(routes[i], result.params); 
+    }
+  }
+
+  return false;
 }

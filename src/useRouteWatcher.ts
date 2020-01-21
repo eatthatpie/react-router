@@ -8,7 +8,12 @@ export default function useRouteWatcher(cb: Function): void {
     throw new Error(`[useRouteWatcher] The RouterContext is not provided.`);
   }
 
-  const [matchedRoutes, setMatchedRoutes] = useState({ from: null, to: { component: router.getCurrentRoute().component } });
+  const [matchedRoutes, setMatchedRoutes] = useState({
+    from: null,
+    to: {
+      component: router.getCurrentRoute().component
+    }
+  });
 
   router.subscribe(matchedRoutes => {
     setMatchedRoutes({ from: matchedRoutes[1], to: matchedRoutes[0] });

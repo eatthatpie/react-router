@@ -3,7 +3,14 @@ import Router from './Router';
 
 describe(`createRouter`, function() {
   it(`generates router instance`, function() {
-    const router = createRouter({});
+    const router = createRouter({
+      routes: [
+        {
+          path: '/',
+          component: null
+        }
+      ]
+    });
 
     expect(router).toBeInstanceOf(Router);
   });

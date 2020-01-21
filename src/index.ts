@@ -6,10 +6,5 @@ import Transition from '@/components/Transition';
 import useCurrentRoute from '@/useCurrentRoute';
 
 export {
-  createRouter,
-  RouterContext,
-  RouterLink,
-  RouterView,
-  Transition,
-  useCurrentRoute
+  createRouter, RouterContext, RouterLink, RouterView, Transition, useCurrentRoute
 };

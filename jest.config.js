@@ -1,9 +1,12 @@
 module.exports = {
   globals: {
     window: {
-      addEventListener: function() {},
+      addEventListener: () => {},
       location: {
-        href: ''
+        pathname: '/'
+      },
+      history: {
+        pushState: function() {}
       }
     }
   },
@@ -11,6 +14,5 @@ module.exports = {
   testEnvironment: 'node',
   moduleNameMapper: {
       "@\/(.*)$": "<rootDir>/src/$1"
-  },
-  setupFilesAfterEnv: ['./jest.setup.js']
+  }
 };

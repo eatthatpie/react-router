@@ -35,11 +35,11 @@ const router = createRouter({
   routes: [
     {
       path: '/history-mode/example',
-      component: Page1
+      component: () => Page1
     },
     {
       path: '/history-mode/example/page2',
-      component: Page2
+      component: () => Page2
     }
   ]
 });

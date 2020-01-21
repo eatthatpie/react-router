@@ -2,10 +2,9 @@ import {
   createRouter,
   RouterContext,
   RouterView,
-  RouterLink,
-  Transition
+  RouterLink
 } from '@eatthatpie/react-router';
-import { Page1, Page2 } from './pages';
+import { Page1, Page2, Page3 } from './pages';
 import React from 'react';
 import { render } from 'react-dom';
 
@@ -20,15 +19,18 @@ function Layout() {
             </RouterLink>
           </li>
           <li>
-            <RouterLink to={{ path: '/route-params/example/page2' }}>
+            <RouterLink to={{ path: '/route-params/example/1/2' }}>
               Page 2
+            </RouterLink>
+          </li>
+          <li>
+            <RouterLink to={{ path: '/route-params/example/1/3' }}>
+              Page 3
             </RouterLink>
           </li>
         </ul>
       </nav>
-      <Transition>
-        <RouterView />
-      </Transition>
+      <RouterView />
     </div>
   );
 }
@@ -38,11 +40,15 @@ const router = createRouter({
   routes: [
     {
       path: '/route-params/example',
-      component: Page1
+      component: () => Page1
     },
     {
-      path: '/route-params/example/page2',
-      component: Page2
+      path: '/route-params/example/1/2',
+      component: () => Page2
+    },
+    {
+      path: '/route-params/example/1/:id',
+      component: () => Page3
     }
   ]
 });
