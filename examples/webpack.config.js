@@ -4,7 +4,8 @@ module.exports = {
   mode: 'development',
   entry: {
     'history-mode': path.join(path.join(__dirname, 'history-mode'), 'app.js'),
-    'route-params': path.join(path.join(__dirname, 'route-params'), 'app.js')
+    'route-params': path.join(path.join(__dirname, 'route-params'), 'app.js'),
+    'transition': path.join(path.join(__dirname, 'transition'), 'app.js')
   },
   output: {
     path: path.join(__dirname, 'build'),
