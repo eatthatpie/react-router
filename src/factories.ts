@@ -4,8 +4,16 @@ import IRoutingMode from '@/interfaces/IRoutingMode';
 import HashRoutingMode from '@/HashRoutingMode';
 import HistoryRoutingMode from '@/HistoryRoutingMode';
 
-export function createMatchedRoute(routeConfig: IRouteConfig): IMatchedRoute {
-  return routeConfig;
+export function createMatchedRoute(
+  routeConfig: IRouteConfig,
+  matchedPath: string,
+  params?: any
+): IMatchedRoute {
+  if (!params) {
+    return <IMatchedRoute> routeConfig;
+  }
+
+  return <IMatchedRoute> Object.assign({}, routeConfig, { matchedPath, params });
 }
 
 export function createRoutingMode(modeName: string): IRoutingMode {

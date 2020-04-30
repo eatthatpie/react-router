@@ -1,17 +1,13 @@
 import IMatchedRoute from '@/interfaces/IMatchedRoute';
 import useRouteWatcher from '@/useRouteWatcher';
-import React, { useState } from 'react';
+import React, { createElement, useState } from 'react';
 
 export default function RouterView() {
-  const [component, setComponent] = useState(null);
+  const [component, setComponent] = useState('');
 
   useRouteWatcher((from: IMatchedRoute, to: IMatchedRoute) => {
     setComponent(to ? to.component : null);
   });
 
-  return (
-    <div>
-      {component}
-    </div>
-  );
+  return (component && createElement(component));
 }

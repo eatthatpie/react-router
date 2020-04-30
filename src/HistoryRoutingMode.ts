@@ -39,7 +39,7 @@ export default class HistoryRoutingMode implements IRoutingMode {
       return;
     }
 
-    window.history.pushState('', '', matchedRoute.path);
+    window.history.pushState('', '', matchedRoute.matchedPath);
 
     this._state[1] = Object.assign({}, this._state[0]);
     this._state[0] = Object.assign({}, matchedRoute);

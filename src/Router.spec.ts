@@ -5,6 +5,11 @@ describe(`Router`, function() {
     mode: 'history',
     routes: [
       {
+        name: 'home',
+        path: '/',
+        component: null
+      },
+      {
         name: 'a',
         path: '/a',
         component: null
@@ -18,7 +23,7 @@ describe(`Router`, function() {
     });
 
     it(`throws error if the path or route name are not defined`, function() {
-      expect(() => router.push({ path: '/' })).toThrow();
+      expect(() => router.push({ path: '/b' })).toThrow();
       expect(() => router.push({ name: 'b' })).toThrow();
     });
 

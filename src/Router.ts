@@ -39,7 +39,7 @@ export default class Router {
       );
     }
   
-    this._mode.pop(matchedRoute);
+    this._mode.pop(<IMatchedRoute> matchedRoute);
 
     return true;
   }
@@ -53,7 +53,7 @@ export default class Router {
       );
     }
   
-    this._mode.push(matchedRoute);
+    this._mode.push(<IMatchedRoute> matchedRoute);
 
     return true;
   }
