@@ -1,5 +1,5 @@
-import React from 'react';
-import { useCurrentRoute } from '@eatthatpie/react-router';
+import React, { useContext } from 'react';
+import { RouterContext } from 'best-react-router';
 
 export function Page1() {
   return (
@@ -12,7 +12,8 @@ export function Page1() {
 }
 
 export function Page2() {
-  const route = useCurrentRoute();
+  const router = useContext(RouterContext);
+  const route = router.getCurrentRoute();
 
   return (
     <div className="page-2">
@@ -24,7 +25,8 @@ export function Page2() {
 }
 
 export function Page3() {
-  const route = useCurrentRoute();
+  const router = useContext(RouterContext);
+  const route = router.getCurrentRoute();
 
   return (
     <div className="page-3">

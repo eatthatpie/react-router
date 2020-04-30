@@ -2,7 +2,7 @@ import RouterContext from '@/RouterContext';
 import { useContext, useEffect, useState } from 'react';
 
 export default function useRouteWatcher(cb: Function): void {
-  const router = useContext(RouterContext);
+  const router: any = useContext(RouterContext);
 
   if (!router) {
     throw new Error(`[useRouteWatcher] The RouterContext is not provided.`);

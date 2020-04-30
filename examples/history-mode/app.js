@@ -3,7 +3,7 @@ import {
   RouterContext,
   RouterView,
   RouterLink
-} from '@eatthatpie/react-router';
+} from 'best-react-router';
 import { Page1, Page2 } from './pages';
 import React from 'react';
 import { render } from 'react-dom';
