@@ -11,7 +11,6 @@ app.use(middleware(compiler, { publicPath: '/build/' }));
 
 app.use(rewrite('/history-mode/:segment', '/history-mode/index.html'));
 app.use(rewrite('/route-params/:segment', '/route-params/index.html'));
-app.use(rewrite('/transition/:segment', '/transition/index.html'));
 app.use(rewrite('/', 'index.html'));
 
 app.use(express.static(__dirname));
