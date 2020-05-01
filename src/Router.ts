@@ -1,15 +1,18 @@
 import ILocation from '@/interfaces/ILocation';
+import IMatchedRoute from './interfaces/IMatchedRoute';
 import IRouterConfig from '@/interfaces/IRouterConfig';
 import IRoutingMode from '@/interfaces/IRoutingMode';
 import IRouteConfig from '@/interfaces/IRouteConfig';
 import { createRoutingMode } from '@/factories';
-import IMatchedRoute from './interfaces/IMatchedRoute';
+import { MiddlewareContainer, createMiddlewareContainer } from '@/middleware';
 
 export default class Router {
+  protected _middlewareContainer: MiddlewareContainer;
   protected _mode: IRoutingMode;
   public routes: Array<IRouteConfig>;
 
   public constructor(config?: IRouterConfig) {
+    this._middlewareContainer = createMiddlewareContainer()
     this.routes = config && config.routes ? config.routes : [];
     this._mode = config && config.mode
       ? createRoutingMode(config.mode)
@@ -25,6 +28,11 @@ export default class Router {
 
     // ...but push event is triggered programmatically.
     this.subscribe((matchedRoutes, type) => {
+      this.middleware().run({
+        from: matchedRoutes[0],
+        to: matchedRoutes[1]
+      });
+  
       if (type === 'push') {
         window.history.pushState('', '', matchedRoutes[0].matchedPath);
       }
@@ -33,6 +41,10 @@ export default class Router {
 
   public getCurrentRoute(): IMatchedRoute {
     return this._mode.getCurrentRoute();
+  }
+
+  public middleware(): MiddlewareContainer {
+    return this._middlewareContainer;
   }
 
   public pop(e: PopStateEvent): Boolean {
