@@ -76,6 +76,19 @@ export default Layout;
 
 - [Basic example](https://github.com/eatthatpie/react-router/tree/master/examples/history-mode)
 - [Route params](https://github.com/eatthatpie/react-router/tree/master/examples/route-params)
+- [Transition](https://github.com/eatthatpie/react-router/tree/master/examples/transition)
+- [Middleware](https://github.com/eatthatpie/react-router/tree/master/examples/middleware)
+- [Route watcher & meta data](https://github.com/eatthatpie/react-router/tree/master/examples/route-meta)
+
+## Tests
+
+Running e2e tests:
+
+```sh
+npm run examples && npm run test:e2e
+```
+
+At them moment available for `Chrome` and `Firefox` webdrivers.
 
 ## License
 

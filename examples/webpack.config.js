@@ -5,7 +5,9 @@ module.exports = {
   entry: {
     'history-mode': path.join(path.join(__dirname, 'history-mode'), 'app.js'),
     'route-params': path.join(path.join(__dirname, 'route-params'), 'app.js'),
-    'transition': path.join(path.join(__dirname, 'transition'), 'app.js')
+    'transition': path.join(path.join(__dirname, 'transition'), 'app.js'),
+    'middleware': path.join(path.join(__dirname, 'middleware'), 'app.js'),
+    'route-meta': path.join(path.join(__dirname, 'route-meta'), 'app.js')
   },
   output: {
     path: path.join(__dirname, 'build'),

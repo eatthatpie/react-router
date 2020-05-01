@@ -16,8 +16,8 @@ export default function useRouteWatcher(cb: Function): void {
   });
 
   useEffect(() => {
-    router.subscribe(matchedRoutes => {
-      setMatchedRoutes({ from: matchedRoutes[1], to: matchedRoutes[0] });
+    router.subscribe((from, to) => {
+      setMatchedRoutes({ from, to });
     });
   }, [null]);
 

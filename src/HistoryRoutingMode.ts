@@ -6,7 +6,7 @@ import matchRoute from '@/matchRoute';
 
 export default class HistoryRoutingMode implements IRoutingMode {
   public constructor(
-    protected _cbs: Array<Function> = [],
+    protected _subscriber: Function = () => {},
     protected _isListeningToPopState: Boolean = true,
     protected _isListeningToPushState: Boolean = false,
     protected _state: Array<any> = [{}, {}]
@@ -41,7 +41,7 @@ export default class HistoryRoutingMode implements IRoutingMode {
     this._state[0] = Object.assign({}, matchedRoute);
 
     if (this._isListeningToPopState) {
-      this._cbs.forEach(cb => { cb(this._state, 'pop'); });
+      this._subscriber(this._state, 'pop');
     }
 
     return true;
@@ -64,13 +64,13 @@ export default class HistoryRoutingMode implements IRoutingMode {
     this._state[0] = Object.assign({}, matchedRoute);
 
     if (this._isListeningToPushState) {
-      this._cbs.forEach(cb => { cb(this._state, 'push'); });
+      this._subscriber(this._state, 'push');
     }
 
     return true;
   }
 
-  public subscribe(cb: Function): void {
-    this._cbs.push(cb);
+  public setSubscriber(fn: Function): void {
+    this._subscriber = fn;
   }
 }
