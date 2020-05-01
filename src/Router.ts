@@ -7,10 +7,10 @@ import IMatchedRoute from './interfaces/IMatchedRoute';
 
 export default class Router {
   protected _mode: IRoutingMode;
-  public _routes: Array<IRouteConfig>;
+  public routes: Array<IRouteConfig>;
 
   public constructor(config?: IRouterConfig) {
-    this._routes = config && config.routes ? config.routes : [];
+    this.routes = config && config.routes ? config.routes : [];
     this._mode = config && config.mode
       ? createRoutingMode(config.mode)
       : createRoutingMode('history')
@@ -38,14 +38,14 @@ export default class Router {
   public pop(e: PopStateEvent): Boolean {
     const location = { path: window.location.pathname };
   
-    return this._mode.pop(this._routes, location);
+    return this._mode.pop(this.routes, location);
   }
 
   public push(location: ILocation): Boolean {
-    return this._mode.push(this._routes, location);
+    return this._mode.push(this.routes, location);
   }
 
-  public subscribe(cb: Function) {
+  public subscribe(cb: Function): void {
     this._mode.subscribe(cb);
   }
 }

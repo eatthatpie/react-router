@@ -36,7 +36,6 @@ function Layout() {
 }
 
 const router = createRouter({
-  mode: 'history',
   routes: [
     {
       path: '/route-params/example',
