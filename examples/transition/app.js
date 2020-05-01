@@ -14,18 +14,36 @@ function Layout() {
       <nav>
         <ul>
           <li>
-            <RouterLink to={{ path: '/history-mode/example' }}>
+            <RouterLink to={{ path: '/transition/example' }}>
               Page 1
             </RouterLink>
           </li>
           <li>
-            <RouterLink to={{ path: '/history-mode/example/page2' }}>
+            <RouterLink to={{ path: '/transition/example/page2' }}>
               Page 2
             </RouterLink>
           </li>
         </ul>
       </nav>
-      <RouterView />
+      <RouterView transition={{
+        duration: 0.4,
+        style: {
+          enterActive: {},
+          enter: {
+            opacity: 0
+          },
+          enterTo: {
+            opacity: 1
+          },
+          leaveActive: {},
+          leave: {
+            opacity: 1
+          },
+          leaveTo: {
+            opacity: 0
+          }
+        }
+      }} />
     </div>
   );
 }
@@ -33,11 +51,11 @@ function Layout() {
 const router = createRouter({
   routes: [
     {
-      path: '/history-mode/example',
+      path: '/transition/example',
       component: () => Page1
     },
     {
-      path: '/history-mode/example/page2',
+      path: '/transition/example/page2',
       component: () => Page2
     }
   ]
