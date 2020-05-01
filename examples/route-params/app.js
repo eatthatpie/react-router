@@ -1,6 +1,6 @@
 import {
   createRouter,
-  RouterContext,
+  RouterProvider,
   RouterView,
   RouterLink
 } from 'best-react-router';
@@ -55,9 +55,9 @@ const router = createRouter({
 
 function App() {
   return (
-    <RouterContext.Provider value={router}>
+    <RouterProvider router={router}>
       <Layout />
-    </RouterContext.Provider>
+    </RouterProvider>
   );
 }
 

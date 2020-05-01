@@ -11,7 +11,7 @@
     "test-cov": "jest --passWithNoTests --coverage ./src",
     "test:e2e-ch": "cross-env BROWSER=chrome jest ./e2e",
     "test:e2e-ff": "cross-env BROWSER=firefox jest ./e2e",
-    "test:e2e": "npm run test:e2e-ch; npm run test:e2e-ff"
+    "test:e2e": "npm run test:e2e-ch && npm run test:e2e-ff"
   },
   "keywords": [],
   "author": "eatthatpie <eatthatpie.dev@gmail.com>",

@@ -27,7 +27,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'best-react-router$': path.join(__dirname, '../dist/build.es.js'),
+      'best-react-router$': path.join(__dirname, '../src/index'),
       "@": path.resolve(__dirname, '../src')
     },
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']

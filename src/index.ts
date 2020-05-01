@@ -1,8 +1,8 @@
 import createRouter from '@/createRouter';
-import RouterContext from '@/RouterContext';
+import { RouterContext, RouterProvider } from '@/RouterContext';
 import RouterLink from '@/components/RouterLink';
 import RouterView from '@/components/RouterView';
 
 export {
-  createRouter, RouterContext, RouterLink, RouterView
+  createRouter, RouterContext, RouterLink, RouterProvider, RouterView
 };

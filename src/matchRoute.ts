@@ -8,7 +8,7 @@ import { createMatchedRoute } from '@/factories';
 export default function matchRoute(
   routes: Array<IRouteConfig>,
   location: ILocation
-): IMatchedRoute | boolean {
+): IMatchedRoute | null {
   if (location.path && location.name) {
     throw new Error(
       `[matchRoute] Properties 'path' and 'name' cannot be given at the same time.`
@@ -35,5 +35,5 @@ export default function matchRoute(
     }
   }
 
-  return false;
+  return null;
 }

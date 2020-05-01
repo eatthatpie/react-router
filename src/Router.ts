@@ -2,7 +2,6 @@ import ILocation from '@/interfaces/ILocation';
 import IRouterConfig from '@/interfaces/IRouterConfig';
 import IRoutingMode from '@/interfaces/IRoutingMode';
 import IRouteConfig from '@/interfaces/IRouteConfig';
-import matchRoute from '@/matchRoute';
 import { createRoutingMode } from '@/factories';
 import IMatchedRoute from './interfaces/IMatchedRoute';
 
@@ -21,7 +20,15 @@ export default class Router {
     this._mode.listenToPushState();
     this._mode.listenToPopState();
 
+    // Pop event is triggered by history API...
     window.addEventListener('popstate', this.pop.bind(this));
+
+    // ...but push event is triggered programmatically.
+    this.subscribe((matchedRoutes, type) => {
+      if (type === 'push') {
+        window.history.pushState('', '', matchedRoutes[0].matchedPath);
+      }
+    });
   }
 
   public getCurrentRoute(): IMatchedRoute {
@@ -30,32 +37,12 @@ export default class Router {
 
   public pop(e: PopStateEvent): Boolean {
     const location = { path: window.location.pathname };
-
-    const matchedRoute = matchRoute(this._routes, location);
-
-    if (!matchedRoute) {
-      throw new Error(
-        `[Router] The given route is not defined in router config.`
-      );
-    }
   
-    this._mode.pop(<IMatchedRoute> matchedRoute);
-
-    return true;
+    return this._mode.pop(this._routes, location);
   }
 
   public push(location: ILocation): Boolean {
-    const matchedRoute = matchRoute(this._routes, location);
-
-    if (!matchedRoute) {
-      throw new Error(
-        `[Router] The given route is not defined in router config.`
-      );
-    }
-  
-    this._mode.push(<IMatchedRoute> matchedRoute);
-
-    return true;
+    return this._mode.push(this._routes, location);
   }
 
   public subscribe(cb: Function) {

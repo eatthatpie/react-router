@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import RouterContext from '@/RouterContext';
+import { RouterContext } from '@/RouterContext';
 
 export default function RouterLink(props) {
   const $router: any = useContext(RouterContext);

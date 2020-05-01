@@ -1,5 +1,8 @@
-import IRoutingMode from '@/interfaces/IRoutingMode';
+import ILocation from './interfaces/ILocation';
 import IMatchedRoute from './interfaces/IMatchedRoute';
+import IRouteConfig from './interfaces/IRouteConfig';
+import IRoutingMode from '@/interfaces/IRoutingMode';
+import matchRoute from '@/matchRoute';
 
 export default class HistoryRoutingMode implements IRoutingMode {
   public constructor(
@@ -25,28 +28,46 @@ export default class HistoryRoutingMode implements IRoutingMode {
     return this._isListeningToPushState;
   }
 
-  public pop(matchedRoute: IMatchedRoute): void {
+  public pop(routes: Array<IRouteConfig>, location: ILocation): Boolean {
+    const matchedRoute = matchRoute(routes, location);
+
+    if (!matchedRoute) {
+      throw new Error(
+        `[Router] The given route is not defined in router config.`
+      );
+    }
+
     this._state[1] = Object.assign({}, this._state[0]);
     this._state[0] = Object.assign({}, matchedRoute);
 
     if (this._isListeningToPopState) {
-      this._cbs.forEach(cb => { cb(this._state); });
+      this._cbs.forEach(cb => { cb(this._state, 'pop'); });
     }
+
+    return true;
   }
 
-  public push(matchedRoute: IMatchedRoute): void {
-    if (this._state && matchedRoute.path === this._state[0].path) {
-      return;
-    }
+  public push(routes: Array<IRouteConfig>, location: ILocation): Boolean {
+    const matchedRoute = matchRoute(routes, location);
 
-    window.history.pushState('', '', matchedRoute.matchedPath);
+    if (!matchedRoute) {
+      throw new Error(
+        `[Router] The given route is not defined in router config.`
+      );
+    }
+  
+    if (this._state && matchedRoute.path === this._state[0].path) {
+      return false;
+    }
 
     this._state[1] = Object.assign({}, this._state[0]);
     this._state[0] = Object.assign({}, matchedRoute);
 
     if (this._isListeningToPushState) {
-      this._cbs.forEach(cb => { cb(this._state); });
+      this._cbs.forEach(cb => { cb(this._state, 'push'); });
     }
+
+    return true;
   }
 
   public subscribe(cb: Function): void {

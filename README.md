@@ -13,10 +13,9 @@ npm i -s best-react-router
 import React from 'react';
 import Layout from './layout';
 import { render } from 'react-dom';
-import { createRouter, RouterContext } from 'best-react-router';
+import { createRouter, RouterProvider } from 'best-react-router';
 
 const router = createRouter({
-  mode: 'history',
   routes: [
     {
       path: '/',
@@ -24,16 +23,16 @@ const router = createRouter({
     },
     {
       path: '/me/about',
-      component: () => import('About')
+      component: () => import('./About')
     }
   ]
 });
 
 function App() {
   return (
-    <RouterContext.Provider value={router}>
+    <RouterProvider router={router}>
       <Layout />
-    </RouterContext.Provider>
+    </RouterProvider>
   );
 }
 
