@@ -1,22 +1,44 @@
 class MiddlewareContainer {
-  constructor(protected _middleware: Array<Function> = []) {}
+  constructor(
+    protected _middlewareBefore: Array<Function> = [],
+    protected _middlewareAfter: Array<Function> = []
+  ) {}
 
-  public registerMiddleware(cb: Function): void {
-    this._middleware.push(cb);
+  public registerMiddlewareBefore(cb: Function): void {
+    this._middlewareBefore.push(cb);
   }
 
-  public run({ from, to }, current = 0): void {
+  public registerMiddlewareAfter(cb: Function): void {
+    this._middlewareAfter.push(cb);
+  }
+
+  public registerMiddleware(cb: Function): void {
+    this.registerMiddlewareBefore(cb);
+  }
+
+  public run({ from, to, type }, current = 0): void {
+    const middleware: Array<Function> = this._middlewareBefore.concat(
+      this._middlewareAfter
+    );
+  
+    if (middleware.length <= 0) {
+      return;
+    }
+
+    const isLast = current >= middleware.length - 1;
     let next = function() {}
   
-    if (current < this._middleware.length - 1) {
+    if (!isLast) {
       const nextIndex = current + 1;
 
       next = () => {
-        this.run({ from, to }, nextIndex);
+        this.run({ from, to, type }, nextIndex);
       }
     }
 
-    this._middleware[current]({ from, to, next });
+    middleware[current]({ from, to, type, next });
+
+    return;
   }
 }
 

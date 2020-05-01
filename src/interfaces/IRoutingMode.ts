@@ -8,5 +8,5 @@ export default interface IRoutingMode {
   listenToPushState(): Boolean;
   pop(routes: Array<IRouteConfig>, location: ILocation): Boolean;
   push(routes: Array<IRouteConfig>, location: ILocation): Boolean;
-  subscribe(cb: Function): void;
+  setSubscriber(fn: Function): void;
 }

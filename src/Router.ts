@@ -7,11 +7,13 @@ import { createRoutingMode } from '@/factories';
 import { MiddlewareContainer, createMiddlewareContainer } from '@/middleware';
 
 export default class Router {
+  protected _cbs: Array<Function>;
   protected _middlewareContainer: MiddlewareContainer;
   protected _mode: IRoutingMode;
   public routes: Array<IRouteConfig>;
 
   public constructor(config?: IRouterConfig) {
+    this._cbs = [];
     this._middlewareContainer = createMiddlewareContainer()
     this.routes = config && config.routes ? config.routes : [];
     this._mode = config && config.mode
@@ -23,19 +25,24 @@ export default class Router {
     this._mode.listenToPushState();
     this._mode.listenToPopState();
 
+    this.middleware().registerMiddlewareAfter(({ from, to, type }) => {
+      this._cbs.forEach(cb => { cb(from, to); });
+
+      if (type === 'push') {
+        window.history.pushState('', '', to.matchedPath);
+      }
+    });
+
     // Pop event is triggered by history API...
     window.addEventListener('popstate', this.pop.bind(this));
 
     // ...but push event is triggered programmatically.
-    this.subscribe((matchedRoutes, type) => {
+    this._mode.setSubscriber((matchedRoutes, type) => {
       this.middleware().run({
-        from: matchedRoutes[0],
-        to: matchedRoutes[1]
+        from: matchedRoutes[1],
+        to: matchedRoutes[0],
+        type
       });
-  
-      if (type === 'push') {
-        window.history.pushState('', '', matchedRoutes[0].matchedPath);
-      }
     });
   }
 
@@ -58,6 +65,6 @@ export default class Router {
   }
 
   public subscribe(cb: Function): void {
-    this._mode.subscribe(cb);
+    this._cbs.push(cb);
   }
 }
