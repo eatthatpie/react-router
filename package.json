@@ -1,7 +1,7 @@
 {
   "name": "best-react-router",
   "version": "0.2.0",
-  "description": "5kB router for react",
+  "description": "8kB router for react",
   "main": "dist/build.cjs.js",
   "module": "dist/build.es.js",
   "scripts": {
