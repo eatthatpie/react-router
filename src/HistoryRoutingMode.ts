@@ -37,11 +37,8 @@ export default class HistoryRoutingMode implements IRoutingMode {
       );
     }
 
-    this._state[1] = Object.assign({}, this._state[0]);
-    this._state[0] = Object.assign({}, matchedRoute);
-
     if (this._isListeningToPopState) {
-      this._subscriber(this._state, 'pop');
+      this._subscriber(matchedRoute, 'pop');
     }
 
     return true;
@@ -55,16 +52,9 @@ export default class HistoryRoutingMode implements IRoutingMode {
         `[Router] The given route is not defined in router config.`
       );
     }
-  
-    if (this._state && matchedRoute.path === this._state[0].path) {
-      return false;
-    }
-
-    this._state[1] = Object.assign({}, this._state[0]);
-    this._state[0] = Object.assign({}, matchedRoute);
 
     if (this._isListeningToPushState) {
-      this._subscriber(this._state, 'push');
+      this._subscriber(matchedRoute, 'push');
     }
 
     return true;

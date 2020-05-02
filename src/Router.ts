@@ -8,24 +8,27 @@ import { MiddlewareContainer, createMiddlewareContainer } from '@/middleware';
 
 export default class Router {
   protected _cbs: Array<Function>;
+  protected _matches: Array<any>;
   protected _middlewareContainer: MiddlewareContainer;
   protected _mode: IRoutingMode;
   public routes: Array<IRouteConfig>;
 
   public constructor(config?: IRouterConfig) {
     this._cbs = [];
+    this._matches = [{}, {}];
     this._middlewareContainer = createMiddlewareContainer()
     this.routes = config && config.routes ? config.routes : [];
     this._mode = config && config.mode
       ? createRoutingMode(config.mode)
       : createRoutingMode('history')
 
-    this.push({ path: window.location.pathname });
-
     this._mode.listenToPushState();
     this._mode.listenToPopState();
 
     this.middleware().registerMiddlewareAfter(({ from, to, type }) => {
+      this._matches[0] = to;
+      this._matches[1] = from;
+
       this._cbs.forEach(cb => { cb(from, to); });
 
       if (type === 'push') {
@@ -37,17 +40,23 @@ export default class Router {
     window.addEventListener('popstate', this.pop.bind(this));
 
     // ...but push event is triggered programmatically.
-    this._mode.setSubscriber((matchedRoutes, type) => {
+    this._mode.setSubscriber((matchedRoute, type) => {
+      if (this._matches.length && matchedRoute.path === this._matches[0].path) {
+        return;
+      }
+
       this.middleware().run({
-        from: matchedRoutes[1],
-        to: matchedRoutes[0],
+        from: this._matches.length ? this._matches[0] : null,
+        to: matchedRoute,
         type
       });
     });
+
+    this.push({ path: window.location.pathname });
   }
 
   public getCurrentRoute(): IMatchedRoute {
-    return this._mode.getCurrentRoute();
+    return this._matches ? this._matches[0] : null;
   }
 
   public middleware(): MiddlewareContainer {
