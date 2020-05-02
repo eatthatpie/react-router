@@ -93,24 +93,28 @@ const router = createRouter({
 ```js
 function Page() {
   return (
-    <RouterLink to={{ path: '/' }}>
-      Home
-    </RouterLink>
-    <RouterLink to={{ path: '/about' }}>
-      About
-    </RouterLink>
+    <>
+      <RouterLink to={{ path: '/' }}>
+        Home
+      </RouterLink>
+      <RouterLink to={{ path: '/about' }}>
+        About
+      </RouterLink>
+    </>
   );
 }
 ```
 ```js
 function Page() {
   return (
-    <RouterLink to={{ name: 'home' }}>
-      Home
-    </RouterLink>
-    <RouterLink to={{ name: 'about' }}>
-      About
-    </RouterLink>
+    <>
+      <RouterLink to={{ name: 'home' }}>
+        Home
+      </RouterLink>
+      <RouterLink to={{ name: 'about' }}>
+        About
+      </RouterLink>
+    </>
   );
 }
 ```
