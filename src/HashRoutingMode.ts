@@ -1,5 +1,7 @@
-import IRoutingMode from '@/interfaces/IRoutingMode';
+import ILocation from '@/interfaces/ILocation';
 import IMatchedRoute from '@/interfaces/IMatchedRoute';
+import IRouteConfig from '@/interfaces/IRouteConfig';
+import IRoutingMode from '@/interfaces/IRoutingMode';
 
 export default class HashRoutingMode implements IRoutingMode {
   public getCurrentRoute(): IMatchedRoute {
@@ -14,13 +16,13 @@ export default class HashRoutingMode implements IRoutingMode {
     return true;
   }
 
-  public pop(matchedRoute: IMatchedRoute): void {
+  public pop(routes: Array<IRouteConfig>, location: ILocation): Boolean {
     throw new Error("Method not implemented.");
   }
 
-  public push(matchedRoute: IMatchedRoute): void {
-    window.location.hash = matchedRoute.path;
+  public push(routes: Array<IRouteConfig>, location: ILocation): Boolean {
+    throw new Error("Method not implemented.");
   }
 
-  public subscribe(cb: Function): void {}
+  public setSubscriber(fn: Function): void {}
 }

@@ -39,10 +39,7 @@ const router = createRouter({
   routes: [
     {
       path: '/middleware/example',
-      component: () => Page1,
-      meta: [
-        'que?'
-      ]
+      component: () => Page1
     },
     {
       path: '/middleware/example/page2',
@@ -56,7 +53,6 @@ const router = createRouter({
 });
 
 router.middleware().registerMiddleware(({ to, next }) => {
-  console.log(to)
   if (to.matchedPath === '/middleware/example/page3') {
     alert('You don`t have access to this page.');
   } else {

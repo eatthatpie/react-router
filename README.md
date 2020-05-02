@@ -72,6 +72,133 @@ function Layout() {
 export default Layout;
 ```
 
+## Links
+
+```js
+const router = createRouter({
+  routes: [
+    {
+      name: 'home',
+      path: '/',
+      component: () => ...
+    },
+    {
+      name: 'about',
+      path: '/about',
+      component: () => ...
+    }
+  ]
+});
+```
+```js
+function Page() {
+  return (
+    <RouterLink to={{ path: '/' }}>
+      Home
+    </RouterLink>
+    <RouterLink to={{ path: '/about' }}>
+      About
+    </RouterLink>
+  );
+}
+```
+```js
+function Page() {
+  return (
+    <RouterLink to={{ name: 'home' }}>
+      Home
+    </RouterLink>
+    <RouterLink to={{ name: 'about' }}>
+      About
+    </RouterLink>
+  );
+}
+```
+
+## Route params
+
+```js
+const router = createRouter({
+  routes: [
+    {
+      path: '/page/:slug',
+      component: () => Page
+    }
+  }
+});
+```
+```js
+import { useCurrentRoute } from 'best-react-router'
+
+export function Page() {
+  const route = useCurrentRoute();
+
+  return (
+    <div className="page-2">
+      <h1>
+        This is Page with slug {route.params.slug}.
+      </h1>
+    </div>
+  );
+}
+```
+
+## Transition
+
+```js
+<RouterView transition={{
+  duration: 0.4,
+  style: {
+    enterActive: {},
+    enter: {
+      opacity: 0
+    },
+    enterTo: {
+      opacity: 1
+    },
+    leaveActive: {},
+    leave: {
+      opacity: 1
+    },
+    leaveTo: {
+      opacity: 0
+    }
+  }
+}} />
+```
+
+## Route meta and route watcher
+
+The `meta` property of the route configuration can have a custom value.
+
+```js
+const router = createRouter({
+  routes: [
+    {
+      name: 'home',
+      path: '/',
+      component: () => Page,
+      meta: {
+        title: 'Page 1'
+      }
+    }
+  ]
+})
+```
+```js
+import { useRouteWatcher } from 'best-react-router'
+
+function Page() {
+  useRouteWatcher((from, to) => {
+    if (document && to.meta) {
+      document.title = to.meta.title
+    }
+  })
+
+  ...
+}
+```
+
 ## Examples
 
 - [Basic example](https://github.com/eatthatpie/react-router/tree/master/examples/history-mode)
@@ -88,7 +215,9 @@ Running e2e tests:
 npm run examples && npm run test:e2e
 ```
 
-At them moment available for `Chrome` and `Firefox` webdrivers.
+Drivers included in e2e tests:
+- chrome
+- firefox
 
 ## License
 
